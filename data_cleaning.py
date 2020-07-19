@@ -39,6 +39,27 @@ Competitors: 947
 df_droped = df_copy.copy()
 
 
+# Checks if word in text_field
+def seniority(text_field, dic):
+    senior = 'junior'
+    for key in dic:
+        if key in text_field.lower():
+            senior = dic[key]
+    return senior
+
+seniority_dic = {
+                 "senior": "senior",
+                 "sr": "senior",
+                 "manager": "senior",
+                 "lead ": "senior",
+                 "head ": "senior",
+                 "director": "senior",
+                 "executive": "senior"
+                 }
+
+
+df_droped["seniority"] = df_droped["Job Title"].apply(lambda x: seniority(x,seniority_dic))
+
 # Clean Cumpany name column
 ## Parse ratings out of comp name
 df_droped["company_name"] = df_droped["Company Name"].apply(lambda x: x.split("\n")[0])
@@ -155,7 +176,7 @@ def text_presence(job_desc, lan_list):
 
 ## E.g. Refrence to programming languages (Python, Java, etc)
 ### To enture Java and R are stand alone insert space before and or after
-Languages = ["python", "excel", "sql", "spark", "hadoop", "java ", " r ", "tensorflow", "matlab"]
+Languages = ["python", "excel", "sql", "aws", "spark", "hadoop", "java ", " r ", "tensorflow", "matlab"]
 df_droped["languages"] = df_droped["Job Description"].apply(lambda x: text_presence(x, Languages))
 
 ## Print Language Frequencies
@@ -198,8 +219,7 @@ df_droped["competitors"] = df_droped["Competitors"].apply(lambda x: x.split(', '
 df_droped["founded"] = df_droped["Founded"].apply(lambda x: int(x))
 
 
-data = df_droped.drop(["Job Title",
-                       "Salary Estimate",
+data = df_droped.drop(["Salary Estimate",
                        "Rating",
                        "Company Name",
                        "Size",
