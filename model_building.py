@@ -206,7 +206,7 @@ xgb.fit(train_X, train_y)
 
 
 # If low on time --> low_oon_time = True
-low_on_time = False
+low_on_time = True 
 
 
 if low_on_time:
@@ -358,7 +358,7 @@ print("\n\n\n")
 
     
 
-"""
+# Save best model
 pickl = {'model': gb_gs.best_estimator_}
 pickle.dump( pickl, open( 'model_file' + ".p", "wb" ) )
 
@@ -366,8 +366,7 @@ file_name = "model_file.p"
 with open(file_name, 'rb') as pickled:
     data = pickle.load(pickled)
     model = data['model']
+    
 
 model.predict(np.array(list(val_X.iloc[1,:])).reshape(1,-1))[0]
-
 list(val_X.iloc[1,:])
-"""
