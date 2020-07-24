@@ -12,7 +12,7 @@ To develop a production pipeline able to predict job salaries of subfiels of a g
 In this instance - a user can input a data science related job title such as data scientist, machine learning engineer, etc... 
 As input, the use may provide:
 
-* Role Type - Intern, Junior, Senior, Manager, ...
+* Role Type - Junior or Senior
 * Job title
 * Job location
 * Company name
@@ -76,19 +76,24 @@ For the [glassdoor_scraper.py]() we tweek the following parameters:
 * find_element_by_xpth() - Changed input to mach current website div class or tags.
 
 Additionally to **bypass** the "*login*" and "*accept cookies*" prompts,
+
 ![alt text][logo]
 
-[logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 2" the following lines were added.
+[logo]: https://github.com/TobiAdeniyi/glassdoor_proj/blob/master/glassdoor_prompts.png "Glassdoor Prompts" 
+
+the following lines were added.
 
 ```python
   try:
-      driver.find_element_by_css_selector("[alt=Close]").click()  #clicking to the X.
+      #clicking to the X
+      driver.find_element_by_css_selector("[alt=Close]").click()
   except NoSuchElementException:
       pass
 
   if len(jobs) < 1:
       try:
-          driver.find_element_by_id("onetrust-accept-btn-handler").click()  #clicking on the Accept cookies btn.
+          #clicking on the Accept cookies btn
+          driver.find_element_by_id("onetrust-accept-btn-handler").click()
       except:
           pass
 ```
@@ -118,7 +123,7 @@ df = gs.get_jobs('data-scientist', 1300, False, path, 5)
 df.to_csv('glassdoor_jobs.csv', index = False)
 ```
 
-This is saved as a csv file name [`glassdoor_jobs.csv`](). 
+This is saved as a csv file name [`glassdoor_jobs.csv`](https://github.com/TobiAdeniyi/glassdoor_proj/blob/master/glassdoor_jobs.csv). 
 
 ###
 ###
@@ -127,30 +132,46 @@ This is saved as a csv file name [`glassdoor_jobs.csv`]().
 
 ## Data Cleaning
 
-After scraping the data, I needed to clean it up so that it was usable for our model. I made the following changes and created the following variables:
+During data collection entries without salary data were scraped. After collection, the data is cleaned to allow for the best predictions and accuracy of our model. Additionally new feachurs are parsed from existing fields (columns) and some existing variables are changed as follows:
 
-Parsed numeric data out of salary
-Made columns for employer provided salary and hourly wages
-Removed rows without salary
-Parsed rating out of company text
-Made a new column for company state
-Added a column for if the job was at the company’s headquarters
-Transformed founded date into age of company
-Made columns for if different skills were listed in the job description:
-Python
-R
-Excel
-AWS
-Spark
-Column for simplified job title and Seniority
-Column for description length
+1. Parsed job seniority from job title
+2. Parsed numeric data from:
+  * salary
+  * rating
+  * revenue
+  * founded
+  * company size
+3. Created field containng lists for:
+  * companies sector
+  * companies industry
+  * companies competitors
+  * companies ownership type
+4. Made new columns for:
+  * job location - city
+  * company headquaters - city
+5. Created new veriable:
+  * 1 if "company city" == "HQ city"
+  * otherwise 0
+6. Parsed important [DS tools](https://data-flair.training/blogs/data-science-tools/) from job discription:
+  * Python
+  * Excel
+  * SQL
+  * AWS
+  * Spark
+  * Hadoop
+  * Java
+  * Tensorflow
+  * MATLAB
+  * R
 
-### How to implement
+###
+###
 
-Explain what these tests test and why
+Here is an example of how this was done with DS tools. By inserting spaces before and after "R", we can recognise if the programming language was present in the job discription.
 
-```
-Give an example
+```python
+tools = ["python", "excel", "sql", "aws", "spark", "hadoop", "java ", " r ", "tensorflow", "matlab"]
+df["tools"] = df["Job Description"].apply(lambda x: text_presence_in_description(x, tools))
 ```
 
 ###
@@ -158,25 +179,16 @@ Give an example
 
 
 
-## Exploratory data analysis
+## Exploratory data analysis and Feature Engineering
 
-Add additional notes about how to deploy this on a live system
+To analyses the data the appropreate graphs where plotted, along with various tables of the data and the value counts for categorical variables. Below are a few highlights from the pivot tables.
 
-### Analysis
+![alt text](https://github.com/TobiAdeniyi/glassdoor_proj/blob/master/EDA_0.png "Box Plot")
+![alt text](https://github.com/TobiAdeniyi/glassdoor_proj/blob/master/EDA_1.png "Correlation Plot")
+![alt text](https://github.com/TobiAdeniyi/glassdoor_proj/blob/master/EDA_3.png "Bar Plot") 
+![alt text](https://github.com/TobiAdeniyi/glassdoor_proj/blob/master/eda.png "Word Cloud")
 
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### Feature Engineering
-
-Explain what these tests test and why
-
-```
-Give an example
-```
+Additional new features were created, including the number of languages (tools) in a given job and the number of competitors a company has.
 
 ###
 ###
@@ -217,3 +229,4 @@ Show user Estimated salary, variable that provides largest increase in pay
 * [Ken Jee](https://www.youtube.com/channel/UCiT9RITQ9PW6BhXK0y2jaeg) - Data Science Projects From Scratch.
 * [Kaggle](https://www.kaggle.com/) - Courses.
 * [Glassdoor](https://www.glassdoor.co.uk/index.htm) - Job data.
+* [DS tools](https://data-flair.training/blogs/data-science-tools/) - Essential Data Science Ingredients
