@@ -18,9 +18,9 @@ As input, the use may provide:
 * Company name
 
 #### Results and Insight:
-* Created tool that estimates data science salaries (MAE ~ $ 11K) to help data scientists negotiate their income.
-* Scraped over 1000 job descriptions from glassdoor using python and selenium.
-* Engineered features from text in job description to quantify the value of python, excel, aws, and spark to companies.
+* Created tool that estimates data science salaries (MAE ~ £ 6K) to help data scientists negotiate their income.
+* Scraped over 1200 job descriptions from glassdoor using python and selenium.
+* Engineered features from job description to quantify the value of python, excel, aws, ect... to companies.
 * Optimized Linear, Lasso, and Random Forest Regressors using GridsearchCV to reach the best model.
 * Built a client facing API using flask.
 
