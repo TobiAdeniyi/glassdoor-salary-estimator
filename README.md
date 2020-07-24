@@ -29,13 +29,6 @@ As input, the use may provide:
 
 
 
-## TOC
-
-###
-###
-
-
-
 ## Prerequisites
 
 * [IDE](https://jupyter.org/install) - Jupyter Lab
@@ -197,12 +190,36 @@ Additional new features were created, including the number of languages (tools) 
 
 ## Model building
 
+First, I transformed the categorical variables into dummy variables. I also split the data into train and tests sets with a test size of 20%.   
+
+I tried three different models and evaluated them using Mean Absolute Error. I chose MAE because it is relatively easy to interpret and outliers aren’t particularly bad in for this type of model.   
+
+I tried three different models:
+*	**Multiple Linear Regression** – Baseline model to test other approaches.
+*	**Lasso Regression** – Due to data sparcity, a normalized regression would be effective.
+*	**Random Forest** – Again, with the sparsity associated with the data, I thought that this would be a good fit. 
+
+## Model performance
+
+The Gradient Boosted, and Lasso Regression models far outperformed the other approaches on the test and validation sets. 
+
+| Model                      | MEA   | R^2   | EV    |
+| :------------------------: |------:|------:|------:|
+| Gradient Boosted Regressor | ?     | ?     | ?     |
+| Lasso Regressor            | ?     | ?     | ?     |
+| XGBoosted Regressor        | ?     | ?     | ?     |
+| Randome Forest Regressor   | ?     | ?     | ?     |
+| Linear Regressor           | ?     | ?     | ?     |
+| Ridge Regressor            | ?     | ?     | ?     |
+
 ###
 ###
 
 
 
 ## Production
+
+In this step, I built a flask API endpoint that was hosted on a local webserver by following along with the TDS tutorial in the reference section above. The API endpoint takes in a request with a list of values from a job listing and returns an estimated salary. 
 
 Users enter search
 
