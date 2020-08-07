@@ -6,6 +6,7 @@
 
 
 ## Project Overview
+*Note: This is a reproduction of [Data Science From Scratch Project](https://www.youtube.com/watch?v=MpF9HENQjDo&list=PL2zq7klxX5ASFejJj80ob9ZAnBHdz5O1t&index=2&t=3s) by [Ken Jee](https://github.com/PlayingNumbers/ds_salary_proj)*
 
 #### Objective:
 To develop a production pipeline able to predict job salaries of subfiels of a give carier domain.
