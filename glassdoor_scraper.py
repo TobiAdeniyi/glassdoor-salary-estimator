@@ -51,11 +51,11 @@ def get_jobs(keyword, num_jobs, verbose, path, slp_time):
         except NoSuchElementException:
             pass
         
-        if len(jobs) < 1:
-            try:
-                driver.find_element_by_id("onetrust-accept-btn-handler").click()  #clicking to the Accept cookies btn.
-            except:
-                pass
+        # if len(jobs) < 1:
+        #     try:
+        #         driver.find_element_by_id("onetrust-accept-btn-handler").click()  #clicking to the Accept cookies btn.
+        #     except:
+        #         pass
 
         
         #Going through each job in this page

@@ -231,6 +231,6 @@ data = df_droped.drop(["Salary Estimate",
                        "Competitors"], axis=1)
 print(data.dtypes)
 
-data.to_csv('glassdoor_jobs_cleaned.csv', index=False)
+#data.to_csv('glassdoor_jobs_cleaned.csv', index=False)
 
 # Create seniority field from title and description
